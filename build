@@ -1,0 +1,7 @@
+rm hist
+rm lex.yy.c
+
+clear
+flex csv.l
+cc string_buffer_view.c lex.yy.c hist.c comb.c predict.c -O0 -o hist -g -arch x86_64
+./hist
