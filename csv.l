@@ -284,7 +284,7 @@ int main(void)
     validation.next_free = 0;
     validation.arr = NULL;
 
-    T bucks = {12.0,100.0,70.0,70.0};
+    T bucks = {12.0,10.0,70.0,70.0};
     h = hist_create(&bucks, &(T){01, 800,-30,-30}, &(T){12, 1200,+40, +40});
     init_string_buffer(&sb, INITIAL_STRING_BUFFER_SIZE);
     yyin = fopen("data_train.csv", "r"); 
@@ -304,15 +304,33 @@ int main(void)
     yylex();
 
     // printout prediction
+    int cnt_nan = 0;
+    int cnt_valid = 0;
+    double total_sqr_error = 0;
     for(int i=0; i<validation.next_free; i++)
     {
         //appl2(&repr, &h->xs[i], &h->step, mul);
         //appl2(&repr, &repr, &h->lower_bound, add);
         double measured = validation.arr[i].sample.by_name.temp_next;
+        assert(!isnan(measured));
         double predicted_normalized = validation.arr[i].prediction;
         double predicted = predicted_normalized*(h->step.by_name.temp_next) + h->lower_bound.by_name.temp_next;
-        fprintf(stdout, "%d: %3.1f <- %3.1f\n", i, measured, predicted);
+        if(isnan(predicted))
+        {
+            cnt_nan += 1;
+        }
+        else
+        {
+            cnt_valid += 1;
+            assert(!isnan(predicted));
+            total_sqr_error += sqrt((predicted - measured)*(predicted - measured));
+        }
+        //fprintf(stdout, "%d: %3.1f <- %3.1f\n", i, measured, predicted);
     }
+    double avg_error = total_sqr_error/(double)cnt_valid;
+    fprintf(stdout, "invalid:%d, valid:%d, avg error:%3.1f\n", cnt_nan, cnt_valid, avg_error);
+
+    fprintf(stdout, "2022.09.21 - temprature tomorrow %3.1f\n", predict(&(T){9.0,1026.0,16.0,0.0},h)*(h->step.by_name.temp_next) + h->lower_bound.by_name.temp_next);
 
     hist_free(h);
     free(validation.arr);

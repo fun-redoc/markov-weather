@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,6 +7,12 @@
 #include "hist_stru.h"
 #include "predict.h"
 
+double estimate_probability_mass(const T *sample, const Hist *h)
+{
+
+    //assert(false && "not yet implemented.");
+    return 0.0;
+}
 double predict(const T *sample, const Hist *h)
 {
     T repr;
@@ -27,7 +32,13 @@ double predict(const T *sample, const Hist *h)
             dividend += h->cs[i] * h->xs[i].pred.proposition;
         }
     }
-    //assert(divisor!=0.0);
-    double estimate = dividend/divisor;
-    return estimate;
+    //if(divisor == 0.0)
+    //{
+    //    return estimate_probability_mass(sample, h);
+    //}
+    //else
+    {
+        double estimate = dividend/divisor;
+        return estimate;
+    }
 }
