@@ -181,6 +181,7 @@ double min(double a, double b)
 {
     return a>b?b:a;
 }
+
 double max(double a, double b)
 {
     return a>b?a:b;
@@ -190,6 +191,7 @@ void normalize_to_bucket(T *normalized, const T *original, const Hist *h){
    delta(normalized, original, &h->lower_bound);
    appl2(normalized, normalized, &h->step, div_and_tunc);
 }
+
 void hist_add_sample(Hist *h, const T *t)
 {
     assert(h);
@@ -276,23 +278,5 @@ int main_hist_test(void)
         double measured = measured_normalized*(h->step.by_name.temp_next) + h->lower_bound.by_name.temp_next;
         fprintf(stdout, "%d: %3.1f <- %3.1f\n", i, measured_normalized, measured);
     }
-    return 0;
-}
-
-int main_test_combinations_operator(void)
-{
-    int buckets = 2;
-    CombinationsIteratorState *s; 
-    for(s = init_combinations_iterator(buckets,3); 
-        !is_ready(s); 
-        s = next_combination(s))
-    {
-        for(int d=0; d<buckets-1; d++)
-        {
-           printf("%d,", val_vec(s)[d]);
-        }
-        printf("%d\n", val_vec(s)[buckets-1]);
-    }
-    free_combinations_iterator(s);
     return 0;
 }

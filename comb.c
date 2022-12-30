@@ -117,3 +117,21 @@ CombinationsIteratorState *next_combination(CombinationsIteratorState *s)
     }
     return s;
 }
+
+int main_test_combinations_operator(void)
+{
+    int buckets = 2;
+    CombinationsIteratorState *s; 
+    for(s = init_combinations_iterator(buckets,3); 
+        !is_ready(s); 
+        s = next_combination(s))
+    {
+        for(int d=0; d<buckets-1; d++)
+        {
+           printf("%d,", val_vec(s)[d]);
+        }
+        printf("%d\n", val_vec(s)[buckets-1]);
+    }
+    free_combinations_iterator(s);
+    return 0;
+}

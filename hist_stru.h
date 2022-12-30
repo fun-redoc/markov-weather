@@ -21,7 +21,7 @@ struct T {
 };
 struct Hist {         // implemented as resizible array
     bool normalized;  // set false each tim cs ist added, set true when sum of all cs is 1
-    T bucks;     // nuber of buckets is bucks^dims
+    T bucks;          // nuber of buckets is bucks^dims
     size_t size;      // current size of the arrays xs, cs
     size_t cur;       // index of the currently last free position in the arrays
     T step;
