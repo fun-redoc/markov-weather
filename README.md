@@ -2,11 +2,12 @@ Backlog
 ======
 Todo
 ----
-+ automatize picking weather data from DWD
-
-    -  pick current data from DWD site
-    -  generate trainigs and validation set
-
++ extend ```./idle``` to watch for several files
++ forecast rainfall
++ add rainfall as an additional dimension for forcast
++ add predecessing days weather data as an additional dimension for forcasts
++ provide start script for forecast
++ start script shoud pick current wether data from internet
 + boosting missing measurements, try to solve the issue of missing probability mass in the distributions
 
     - Probe 2: create a complete probability distribution and precomute missing values -> maybe lots of memory needed
@@ -14,11 +15,34 @@ Todo
 
 Done
 ----
++ automatize picking weather data from DWD
+
+    -  pick current data from DWD site
+    -  generate trainigs and validation set
 + boosting missing measurements, try to solve the issue of missing probability mass in the distributions
   ("Vicinity Sampling")
 
     - Probe 1: estimate missing probability mass during prediction -> maybe slow
 
+
+Quickstart
+==========
+Getting Data
+------------
+in order to get data use
+```console
+./getdata.sh
+```
+Data is stored in ```data/``` folder.
+
+Build an Run
+------------
+use ```./build```script.
+
+Continous Build and Run
+-----------------------
+
+use ```./idle <file to watch>``` script. It currently only can watch for a single file.
 
 Remarks
 =======

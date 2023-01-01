@@ -1,0 +1,30 @@
+#!/bin/bash
+
+### Set initial time of file
+NAME=$1
+SRC=${NAME}
+LTIME=`stat -t %Z ${SRC}`
+
+while true    
+do
+   ATIME=`stat -t %Z ${SRC}`
+
+   if [[ "$ATIME" != "$LTIME" ]]
+   then    
+       echo "-------------------------------------------------"
+       echo "Building"
+       ./build
+       if [ $? -eq 0 ]
+       then
+           echo "compile success"
+           #time ./${NAME} < ./${NAME}.tst
+           echo
+       else
+           echo "THERE ARE ERRORS"
+       fi
+       LTIME=$ATIME
+       echo "-------------------------------------------------"
+   fi
+   sleep 1
+done
+

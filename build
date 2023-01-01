@@ -1,7 +1,10 @@
+#!/bin/bash
+
 rm hist
 rm lex.yy.c
 
 clear
 flex csv.l
 cc string_buffer_view.c lex.yy.c hist.c comb.c predict.c main.c -O0 -o hist -g -arch x86_64
-./hist
+# ./hist -check data/train.txt data/validation.txt 
+./hist -forecast data/complete.txt 1 1015 15
