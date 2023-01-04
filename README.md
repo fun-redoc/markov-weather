@@ -33,6 +33,9 @@ in order to get data use
 ```console
 ./getdata.sh
 ```
+
+the current version picks data for Hannover.
+
 Data is stored in ```data/``` folder.
 
 Build an Run
@@ -43,6 +46,13 @@ Continous Build and Run
 -----------------------
 
 use ```./idle <file to watch>``` script. It currently only can watch for a single file.
+
+Arguments
+---------
+
+```-validation <path to training dataset> <path to validation dataset>````
+
+```-forecast <path to training> <month number 1..12> <yester pressure> <yester temperature>
 
 Remarks
 =======
